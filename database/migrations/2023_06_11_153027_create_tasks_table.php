@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->smallInteger('importance');
-            $table->string('body');
+            $table->text('body');
             $table->string('start_at', 8);
             $table->string('end_at', 8);
             $table->boolean('active');

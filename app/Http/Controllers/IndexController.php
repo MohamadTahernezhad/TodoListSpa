@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use App\Models\User;
 use Carbon\Carbon;
@@ -13,7 +14,7 @@ class IndexController extends Controller
     public function index()
     {
         $date = Carbon::today()->format('l' . ' , ' . ' d ' . 'M');
-        $taskData = Task::orderBy('importance', 'ASC')->paginate(100);
+        $taskData = TaskResource::collection(Task::orderBy('importance', 'ASC')->paginate(100))->resource;
         return view('index', compact('date', 'taskData'));
     }
 }
