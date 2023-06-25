@@ -17,4 +17,10 @@ class IndexController extends Controller
         $taskData = TaskResource::collection(Task::orderBy('importance', 'ASC')->paginate(100))->resource;
         return view('index', compact('date', 'taskData'));
     }
+
+    public function test(Request $request)
+    {
+        return $request;
+
+    }
 }

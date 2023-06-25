@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,7 +23,7 @@ class TaskResource extends JsonResource
             'start_at' => $this->start_at,
             'end_at' => $this->end_at,
             'active' => $this->active,
-            'created_at' => verta($this->created_at)->format('%d %B %Y'),
+            'created_at' => Carbon::parse($this->created_at)->format('l'),
         ];
     }
 }

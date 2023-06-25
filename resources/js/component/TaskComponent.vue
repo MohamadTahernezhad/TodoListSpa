@@ -4,16 +4,30 @@ import AllTaskComponent from "./AllTaskComponent.vue";
 import OpenTaskComponent from "./OpenTaskComponent.vue";
 import CloseTaskComponent from "./CloseTaskComponent.vue";
 
-const props = defineProps(['date', 'tasks', 'countData']);
+const props = defineProps(['date', 'tasks']);
 const tasks = ref(props.tasks.data);
 
 const currentTab = ref(AllTaskComponent)
 const isActive = ref('all')
+const ActiveArray = ref([]);
+const NotActiveArray = ref([]);
+
 const changeTab = (componentName, type) => {
     currentTab.value = componentName;
     isActive.value = type;
 }
-
+const GetData = () => {
+    tasks.value.forEach((item) => {
+        if (item.active === 1) {
+            ActiveArray.value.push(item);
+        } else {
+            NotActiveArray.value.push(item);
+        }
+    })
+}
+onMounted(() => {
+    GetData();
+})
 </script>
 
 <template>
@@ -34,7 +48,7 @@ const changeTab = (componentName, type) => {
             >All</strong>
             <strong
                 class="text-[.65rem] bg-gray-300 text-white rounded-full w-6 flex justify-center items-center"
-                :class="{'bg-blue-700':isActive=='all'}">{{
+                :class="{'bg-blue-600':isActive=='all'}">{{
                     tasks.length
                 }}</strong>
         </div>
@@ -44,14 +58,16 @@ const changeTab = (componentName, type) => {
                     :class="{'text-blue-700':isActive=='open'}">Open</strong>
             <strong
                 class="text-[.65rem] bg-gray-300 text-white rounded-full w-6 flex justify-center items-center"
-                :class="{'bg-blue-700':isActive=='open'}">15</strong>
+                :class="{'bg-blue-600':isActive=='open'}">{{ ActiveArray.length }}</strong>
         </div>
         <div class="flex gap-1 hover:cursor-pointer" @click="changeTab(CloseTaskComponent,'close')">
             <strong class="font-bold text-sm" :class="{'text-blue-700':isActive=='close'}">Closed</strong>
             <strong
                 class="text-[.65rem] bg-gray-300 text-white rounded-full w-6 flex justify-center items-center"
-                :class="{'bg-blue-700':isActive=='close'}">19</strong>
+                :class="{'bg-blue-600':isActive=='close'}">{{ NotActiveArray.length }}</strong>
         </div>
     </div>
-    <component :is="currentTab" :tasks="props.tasks" :date="props.date"></component>
+    <component :is="currentTab" :tasks="props.tasks" v-if="isActive==='all'"></component>
+    <component :is="currentTab" :tasks="ActiveArray" v-else-if="isActive==='open'"></component>
+    <component :is="currentTab" :tasks="NotActiveArray" v-else></component>
 </template>
