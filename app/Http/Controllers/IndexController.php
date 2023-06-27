@@ -18,9 +18,23 @@ class IndexController extends Controller
         return view('index', compact('date', 'taskData'));
     }
 
-    public function test(Request $request)
+    public function TaskCreate(Request $request)
     {
-        return $request;
-
+        $request->validate([
+            'title' => 'required|max:255',
+            'importance' => 'required',
+            'body' => 'required',
+            'start_at' => 'required|max:5',
+            'end_at' => 'required|max:5',
+        ]);
+        Task::create([
+            'title' => $request->title,
+            'importance' => $request->importance,
+            'body' => $request->body,
+            'start_at' => $request->start_at,
+            'end_at' => $request->end_at,
+            'active' => '1',
+        ]);
+        return response()->json(200);
     }
 }

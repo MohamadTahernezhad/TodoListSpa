@@ -1,11 +1,15 @@
 <script setup>
 import {onMounted, ref} from "vue";
+import {btnShowModal, showModal} from './part/Modal.js';
+
 import AllTaskComponent from "./AllTaskComponent.vue";
 import OpenTaskComponent from "./OpenTaskComponent.vue";
 import CloseTaskComponent from "./CloseTaskComponent.vue";
+import ModalComponent from "./../component/part/ModalComponent.vue";
 
 const props = defineProps(['date', 'tasks']);
 const tasks = ref(props.tasks.data);
+const ShowModal = ref(false);
 
 const currentTab = ref(AllTaskComponent)
 const isActive = ref('all')
@@ -25,6 +29,7 @@ const GetData = () => {
         }
     })
 }
+
 onMounted(() => {
     GetData();
 })
@@ -39,7 +44,8 @@ onMounted(() => {
         <div
             class="flex items-center gap-2 bg-blue-50 px-6 py-2 rounded-xl text-blue-900 text font-bold hover:cursor-pointer hover:shadow transition-shadow">
             <strong class="text-xl font-bold">+</strong>
-            <strong>NewTask</strong>
+            <strong @click="btnShowModal">NewTask</strong>
+            <modal-component v-if="showModal"></modal-component>
         </div>
     </div>
     <div class="flex gap-5 ml-[.4rem]">

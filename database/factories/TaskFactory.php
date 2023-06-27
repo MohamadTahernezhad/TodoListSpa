@@ -20,8 +20,8 @@ class TaskFactory extends Factory
             'title' => fake()->sentence(),
             'importance' => rand(1, 3),
             'body' => fake()->paragraph(),
-            'start_at' => fake()->time('h:m A'),
-            'end_at' => fake()->time('h:m A'),
+            'start_at' => fake()->time('h:m'),
+            'end_at' => fake()->time('h:m'),
             'active' => rand(0, 1),
         ];
     }
