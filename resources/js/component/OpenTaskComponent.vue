@@ -7,7 +7,7 @@ const props = defineProps(['tasks']);
 
 <template>
     <div class="mt-10 grid gap-5 no-scrollbar overflow-x-auto h-[28rem]">
-        <div v-for="taskopen in tasks">
+        <div v-for="taskopen in props.tasks">
             <div class="bg-slate-50 rounded-xl p-5">
                 <div class="flex justify-between mb-5">
                     <div class="w-[80%]">
@@ -21,7 +21,7 @@ const props = defineProps(['tasks']);
                         <p class="text-sm ml-6 text-justify">{{ taskopen.body }}</p>
                     </div>
                     <div>
-                        <input type="checkbox" class="bg-red-800 w-5 h-5">
+                        <input type="checkbox" class="bg-red-800 w-5 h-5" checked>
                     </div>
                 </div>
                 <hr>

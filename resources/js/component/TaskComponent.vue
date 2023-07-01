@@ -6,15 +6,16 @@ import AllTaskComponent from "./AllTaskComponent.vue";
 import OpenTaskComponent from "./OpenTaskComponent.vue";
 import CloseTaskComponent from "./CloseTaskComponent.vue";
 import ModalComponent from "./../component/part/ModalComponent.vue";
+import axios from "axios";
 
 const props = defineProps(['date', 'tasks']);
 const tasks = ref(props.tasks.data);
-const ShowModal = ref(false);
 
 const currentTab = ref(AllTaskComponent)
 const isActive = ref('all')
 const ActiveArray = ref([]);
 const NotActiveArray = ref([]);
+const AllArray = ref([]);
 
 const changeTab = (componentName, type) => {
     currentTab.value = componentName;
@@ -22,6 +23,7 @@ const changeTab = (componentName, type) => {
 }
 const GetData = () => {
     tasks.value.forEach((item) => {
+        AllArray.value.push(item);
         if (item.active === 1) {
             ActiveArray.value.push(item);
         } else {
@@ -29,10 +31,17 @@ const GetData = () => {
         }
     })
 }
+const GetNewData = () => {
+    axios.get('get-all-tasks-data').then(res => {
+        AllArray.value = res.data.data;
+        ActiveArray.value = res.data.data;
+    })
+}
 
 onMounted(() => {
     GetData();
 })
+
 </script>
 
 <template>
@@ -45,7 +54,7 @@ onMounted(() => {
             class="flex items-center gap-2 bg-blue-50 px-6 py-2 rounded-xl text-blue-900 text font-bold hover:cursor-pointer hover:shadow transition-shadow">
             <strong class="text-xl font-bold">+</strong>
             <strong @click="btnShowModal">NewTask</strong>
-            <modal-component v-if="showModal"></modal-component>
+            <modal-component v-if="showModal" @data="GetNewData()"></modal-component>
         </div>
     </div>
     <div class="flex gap-5 ml-[.4rem]">
@@ -54,7 +63,7 @@ onMounted(() => {
             >All</strong>
             <strong
                 class="text-[.65rem] bg-gray-300 text-white rounded-full w-6 flex justify-center items-center"
-                :class="{'bg-blue-600':isActive=='all'}">{{
+                :class="{'bg-blue-700':isActive=='all'}">{{
                     tasks.length
                 }}</strong>
         </div>
@@ -64,16 +73,16 @@ onMounted(() => {
                     :class="{'text-blue-700':isActive=='open'}">Open</strong>
             <strong
                 class="text-[.65rem] bg-gray-300 text-white rounded-full w-6 flex justify-center items-center"
-                :class="{'bg-blue-600':isActive=='open'}">{{ ActiveArray.length }}</strong>
+                :class="{'bg-blue-700':isActive=='open'}">{{ ActiveArray.length }}</strong>
         </div>
         <div class="flex gap-1 hover:cursor-pointer" @click="changeTab(CloseTaskComponent,'close')">
             <strong class="font-bold text-sm" :class="{'text-blue-700':isActive=='close'}">Closed</strong>
             <strong
                 class="text-[.65rem] bg-gray-300 text-white rounded-full w-6 flex justify-center items-center"
-                :class="{'bg-blue-600':isActive=='close'}">{{ NotActiveArray.length }}</strong>
+                :class="{'bg-blue-700':isActive=='close'}">{{ NotActiveArray.length }}</strong>
         </div>
     </div>
-    <component :is="currentTab" :tasks="props.tasks" v-if="isActive==='all'"></component>
+    <component :is="currentTab" :tasks="AllArray" v-if="isActive==='all'"></component>
     <component :is="currentTab" :tasks="ActiveArray" v-else-if="isActive==='open'"></component>
     <component :is="currentTab" :tasks="NotActiveArray" v-else></component>
 </template>

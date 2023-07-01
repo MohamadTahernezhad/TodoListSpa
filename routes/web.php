@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', [IndexController::class, 'index']);
 Route::post('/task/create', [IndexController::class, 'TaskCreate']);
-
+Route::get('/get-all-tasks-data', [IndexController::class, 'GetAllTasksData']);
 

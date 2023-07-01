@@ -14,7 +14,7 @@ class IndexController extends Controller
     public function index()
     {
         $date = Carbon::today()->format('l' . ' , ' . ' d ' . 'M');
-        $taskData = TaskResource::collection(Task::orderBy('importance', 'ASC')->paginate(100))->resource;
+        $taskData = TaskResource::collection(Task::orderBy('importance', 'ASC')->latest()->paginate(100))->resource;
         return view('index', compact('date', 'taskData'));
     }
 
@@ -36,5 +36,10 @@ class IndexController extends Controller
             'active' => '1',
         ]);
         return response()->json(200);
+    }
+
+    public function GetAllTasksData()
+    {
+        return TaskResource::collection(Task::orderBy('importance', 'ASC')->latest()->paginate(100))->resource;
     }
 }
