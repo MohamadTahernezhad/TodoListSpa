@@ -21,7 +21,7 @@ const props = defineProps(['tasks']);
                         <p class="text-sm ml-6 text-justify">{{ taskopen.body }}</p>
                     </div>
                     <div>
-                        <input type="checkbox" class="bg-red-800 w-5 h-5" checked>
+                        <input type="checkbox" class="bg-red-800 w-5 h-5">
                     </div>
                 </div>
                 <hr>

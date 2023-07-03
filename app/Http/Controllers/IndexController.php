@@ -33,7 +33,7 @@ class IndexController extends Controller
             'body' => $request->body,
             'start_at' => $request->start_at,
             'end_at' => $request->end_at,
-            'active' => '1',
+            'active' => '0',
         ]);
         return response()->json(200);
     }
@@ -41,5 +41,15 @@ class IndexController extends Controller
     public function GetAllTasksData()
     {
         return TaskResource::collection(Task::orderBy('importance', 'ASC')->latest()->paginate(100))->resource;
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $taskItem = Task::query();
+        $taskItem = $taskItem->where('id', $id)->first();
+        $taskItem->update([
+            'active' => $request->input('data')
+        ]);
+        return response()->json(200);
     }
 }

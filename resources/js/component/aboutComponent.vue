@@ -1,10 +1,9 @@
 <script setup>
-import {ref} from "vue";
 
-const title = ref('slm about app hastam');
 </script>
 
 <template>
-    <h1>about</h1>
-    <h2>{{ title }}</h2>
+    <div class="h-32 flex justify-center items-center">
+        <p class="capitalize text-xl font-bold ">this is a SPA todoList write with laravel api & vue3</p>
+    </div>
 </template>

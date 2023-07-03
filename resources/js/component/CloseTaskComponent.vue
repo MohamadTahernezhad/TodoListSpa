@@ -22,7 +22,7 @@ const props = defineProps(['tasks']);
                             }}</p>
                     </div>
                     <div>
-                        <input type="checkbox" class="bg-red-800 w-5 h-5">
+                        <input type="checkbox" class="bg-red-800 w-5 h-5" checked>
                     </div>
                 </div>
                 <hr>

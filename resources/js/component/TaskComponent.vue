@@ -24,7 +24,7 @@ const changeTab = (componentName, type) => {
 const GetData = () => {
     tasks.value.forEach((item) => {
         AllArray.value.push(item);
-        if (item.active === 1) {
+        if (item.active === 0) {
             ActiveArray.value.push(item);
         } else {
             NotActiveArray.value.push(item);
@@ -33,11 +33,16 @@ const GetData = () => {
 }
 const GetNewData = () => {
     axios.get('get-all-tasks-data').then(res => {
-        AllArray.value = res.data.data;
-        ActiveArray.value = res.data.data;
+        ClearArray();
+        tasks.value = res.data.data;
+        GetData();
     })
 }
-
+const ClearArray = () => {
+    ActiveArray.value = [];
+    NotActiveArray.value = [];
+    AllArray.value = [];
+}
 onMounted(() => {
     GetData();
 })
@@ -63,8 +68,8 @@ onMounted(() => {
             >All</strong>
             <strong
                 class="text-[.65rem] bg-gray-300 text-white rounded-full w-6 flex justify-center items-center"
-                :class="{'bg-blue-700':isActive=='all'}">{{
-                    tasks.length
+                :class="{'bg-blue-700':isActive==='all'}">{{
+                    AllArray.length
                 }}</strong>
         </div>
         <div class="flex gap-1 hover:cursor-pointer border-l-2 border-slate-200 border-solid pl-5"
@@ -82,7 +87,7 @@ onMounted(() => {
                 :class="{'bg-blue-700':isActive=='close'}">{{ NotActiveArray.length }}</strong>
         </div>
     </div>
-    <component :is="currentTab" :tasks="AllArray" v-if="isActive==='all'"></component>
+    <component :is="currentTab" :tasks="AllArray" v-if="isActive==='all'" @alldata="GetNewData()"></component>
     <component :is="currentTab" :tasks="ActiveArray" v-else-if="isActive==='open'"></component>
     <component :is="currentTab" :tasks="NotActiveArray" v-else></component>
 </template>

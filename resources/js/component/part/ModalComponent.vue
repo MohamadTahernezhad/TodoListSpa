@@ -65,7 +65,6 @@ const ClearData = () => {
 function GetData() {
     storeTask();
     emits('data');
-    showModal.value = false;
 }
 
 </script>
