@@ -6,7 +6,7 @@ const props = defineProps(['tasks']);
 </script>
 
 <template>
-    <div class="mt-10 grid gap-5 no-scrollbar overflow-x-auto h-[28rem]">
+    <div class="mt-10 grid gap-5 no-scrollbar overflow-x-auto h-[28rem] dark:text-black">
         <div v-for="taskopen in props.tasks">
             <div class="bg-slate-50 rounded-xl p-5">
                 <div class="flex justify-between mb-5">
@@ -26,7 +26,7 @@ const props = defineProps(['tasks']);
                 </div>
                 <hr>
                 <div class="mt-2 ml-6 flex gap-2 items-center">
-                    <span class="font-bold text-slate-500 text-sm">{{taskopen.created_at}}</span>
+                    <span class="font-bold text-slate-500 text-sm">{{ taskopen.created_at }}</span>
                     <span class="text-slate-400 text-sm">{{ taskopen.start_at }}</span>
                     <span class="text-slate-400 text-sm">{{ taskopen.end_at }}</span>
                 </div>

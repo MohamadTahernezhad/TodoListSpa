@@ -71,12 +71,12 @@ function GetData() {
 
 <template>
     <div
-        class="modalGallery fixed left-0 top-0 w-screen h-screen bg-[rgba(5,5,5,.6)] grid justify-center items-center hover:cursor-default transition-all"
+        class="modalGallery fixed left-0 top-0 w-screen h-screen bg-[rgba(5,5,5,.6)] grid justify-center items-center hover:cursor-default transition-all "
         @click="closeModal">
-        <div class="bg-white w-[40rem] p-5 rounded-lg">
+        <div class="bg-white w-[40rem] p-5 rounded-lg dark:bg-slate-800 dark:text-white">
             <h1 class="text-center text-xl drop-shadow">Add New Task</h1>
-            <div class="p-5 m-5 bg-slate-100 shadow rounded-lg grid gap-5">
-                <div class="grid grid-cols-2 gap-5 rounded">
+            <div class="p-5 m-5 bg-slate-100 shadow rounded-lg grid gap-5 dark:bg-slate-700 ">
+                <div class="grid grid-cols-2 gap-5 rounded ">
                     <div>
                         <input type="text" placeholder="Title" v-model="form.title"
                                class="rounded-lg p-1 text-[.8rem] text-black w-full focus:outline-none">
@@ -108,7 +108,7 @@ function GetData() {
                 </div>
                 <div class="grid grid-cols-2 gap-5">
                     <div class="grid gap-2">
-                        <label for="" class="text-black text-[.79rem]">Start at</label>
+                        <label for="" class="text-black text-[.79rem] dark:text-white">Start at</label>
                         <div>
                             <input type="text" placeholder="00"
                                    class="rounded-lg text-black text-[.79rem] p-1 shadow w-8 text-center" maxlength="2"
@@ -123,7 +123,7 @@ function GetData() {
                         </div>
                     </div>
                     <div class="grid gap-2">
-                        <label for="" class="text-black text-[.79rem]">End at</label>
+                        <label for="" class="text-black text-[.79rem] dark:text-white">End at</label>
                         <div>
                             <input type="text" placeholder="00"
                                    class="rounded-lg text-black text-[.79rem] p-1 shadow w-8 text-center" maxlength="2"

@@ -23,7 +23,7 @@ const UpdateTask = (taskId, data) => {
 
 <template>
 
-    <div class="mt-10 grid gap-5 no-scrollbar overflow-x-auto h-[28rem]">
+    <div class="mt-10 grid gap-5 no-scrollbar overflow-x-auto h-[28rem] dark:text-black">
         <div class="bg-slate-50 rounded-xl p-5" v-for="task in props.tasks">
             <div class="flex justify-between mb-5">
                 <div class="w-[80%]">

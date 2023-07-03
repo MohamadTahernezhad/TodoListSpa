@@ -7,6 +7,10 @@ import OpenTaskComponent from "./OpenTaskComponent.vue";
 import CloseTaskComponent from "./CloseTaskComponent.vue";
 import ModalComponent from "./../component/part/ModalComponent.vue";
 import axios from "axios";
+import {useDark, useToggle} from "@vueuse/core";
+
+const isDark = useDark();
+const toggleDark = useToggle(isDark);
 
 const props = defineProps(['date', 'tasks']);
 const tasks = ref(props.tasks.data);
@@ -55,6 +59,12 @@ onMounted(() => {
             <h2 class="font-bold text-[1.3rem]">Todayُ s Task</h2>
             <span class="ml-[.1rem]">{{ props.date }}</span>
         </div>
+        <button
+            class="w-10 h-10 border-solid border-2 border-black rounded-full text-xs dark:bg-white dark:text-black"
+            @click="toggleDark()">{{
+                isDark ? "Light" : "Dark"
+            }}
+        </button>
         <div
             class="flex items-center gap-2 bg-blue-50 px-6 py-2 rounded-xl text-blue-900 text font-bold hover:cursor-pointer hover:shadow transition-shadow">
             <strong class="text-xl font-bold">+</strong>

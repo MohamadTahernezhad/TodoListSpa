@@ -5,7 +5,7 @@ const props = defineProps(['tasks']);
 </script>
 
 <template>
-    <div class="mt-10 grid gap-5 no-scrollbar overflow-x-auto h-[28rem]">
+    <div class="mt-10 grid gap-5 no-scrollbar overflow-x-auto h-[28rem] dark:text-black">
         <div v-for="taskclose in props.tasks">
             <div class="bg-slate-50 rounded-xl p-5">
                 <div class="flex justify-between mb-5">
