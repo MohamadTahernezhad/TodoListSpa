@@ -10,6 +10,7 @@
 </head>
 <body
     class="bg-gradient-to-b from-[#e8eaee] via-[#d1d4db] to-[#babdc8] bg-no-repeat h-screen overflow-hidden dark:bg-none dark:bg-slate-800">
+@include('svgGlobal')
 <div id="app"
      class="mx-auto w-[50%] bg-white rounded-2xl p-8 mt-5 text-black shadow-2xl dark:bg-slate-700 dark:text-white">
     <div class="flex justify-between items-center border-b-2 border-gray-200 border-solid">
