@@ -62,12 +62,12 @@ onMounted(() => {
 
         <div class="flex gap-1 items-center">
             <button
-                class="w-8 h-8 border-solid border-2 border-black rounded-full text-xs dark:bg-white dark:text-black flex justify-center items-center"
+                class="w-8 h-8 rounded-full text-xs dark:text-black flex justify-center items-center"
                 @click="toggleDark()">
                 <svg class="icon w-5 h-5" v-if="!isDark">
                     <use xlink:href="#moon"></use>
                 </svg>
-                <svg class="icon" v-else>
+                <svg class="icon w-5 h-5 dark:fill-white" v-else>
                     <use xlink:href="#day"></use>
                 </svg>
             </button>
