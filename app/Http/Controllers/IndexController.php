@@ -52,4 +52,10 @@ class IndexController extends Controller
         ]);
         return response()->json(200);
     }
+
+    public function destroy(Task $task)
+    {
+        $task->delete();
+        return response()->json(200);
+    }
 }

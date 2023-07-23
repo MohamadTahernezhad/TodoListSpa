@@ -1,13 +1,14 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import {btnShowModal, showModal} from './part/Modal.js';
+import axios from "axios";
+import {useDark, useToggle} from "@vueuse/core";
 
 import AllTaskComponent from "./AllTaskComponent.vue";
 import OpenTaskComponent from "./OpenTaskComponent.vue";
 import CloseTaskComponent from "./CloseTaskComponent.vue";
 import ModalComponent from "./../component/part/ModalComponent.vue";
-import axios from "axios";
-import {useDark, useToggle} from "@vueuse/core";
+
 
 const isDark = useDark();
 const toggleDark = useToggle(isDark);
@@ -50,7 +51,6 @@ const ClearArray = () => {
 onMounted(() => {
     GetData();
 })
-
 </script>
 
 <template>
@@ -106,7 +106,13 @@ onMounted(() => {
                 }}</strong>
         </div>
     </div>
-    <component :is="currentTab" :tasks="AllArray" v-if="isActive==='all'" @alldata="GetNewData()"></component>
-    <component :is="currentTab" :tasks="ActiveArray" v-else-if="isActive==='open'"></component>
-    <component :is="currentTab" :tasks="NotActiveArray" v-else></component>
+    <div v-if="isActive==='all'">
+        <component :is="currentTab" :tasks="AllArray" @alldata="GetNewData()"></component>
+    </div>
+    <div v-else-if="isActive==='open'">
+        <component :is="currentTab" :tasks="ActiveArray" @alldata="GetNewData()"></component>
+    </div>
+    <div v-else>
+        <component :is="currentTab" :tasks="NotActiveArray" @alldata="GetNewData()"></component>
+    </div>
 </template>
