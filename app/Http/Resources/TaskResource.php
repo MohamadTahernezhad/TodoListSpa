@@ -2,10 +2,13 @@
 
 namespace App\Http\Resources;
 
-use Carbon\Carbon;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Task
+ */
 class TaskResource extends JsonResource
 {
     /**
@@ -18,12 +21,14 @@ class TaskResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'importance' => $this->importance,
-            'body' => $this->body,
-            'start_at' => $this->start_at,
-            'end_at' => $this->end_at,
-            'active' => $this->active,
-            'created_at' => Carbon::parse($this->created_at)->format('l'),
+            'description' => $this->description,
+            'priority' => $this->priority->value,
+            'starts_at' => $this->starts_at,
+            'ends_at' => $this->ends_at,
+            'is_completed' => $this->is_completed,
+            'completed_at' => $this->completed_at?->toIso8601String(),
+            'created_at' => $this->created_at?->toIso8601String(),
+            'updated_at' => $this->updated_at?->toIso8601String(),
         ];
     }
 }

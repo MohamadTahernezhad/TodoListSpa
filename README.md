@@ -1,66 +1,125 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Todo — Laravel + Vue SPA
+
+[![CI](https://github.com/MohamadTahernezhad/TodoListSpa/actions/workflows/ci.yml/badge.svg)](https://github.com/MohamadTahernezhad/TodoListSpa/actions/workflows/ci.yml)
+
+A calm, focused single-page todo app. The backend is a small, fully tested JSON API built with **Laravel 13**. The frontend is a **Vue 3.5 + TypeScript** SPA styled with **Tailwind CSS 4**.
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="docs/screenshot-light.png" alt="Task list in light mode" width="49%">
+  <img src="docs/screenshot-dark.png" alt="Task list in dark mode" width="49%">
 </p>
 
-## About Laravel
+<p align="center">
+  <img src="docs/screenshot-dialog.png" alt="New task dialog" width="66%">
+  <img src="docs/screenshot-mobile-dark.png" alt="Mobile layout in dark mode" width="23%">
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Create, edit, complete and delete tasks, each with a priority and an optional time window
+- Filter by status (all / open / done) and search titles and notes instantly
+- Optimistic updates with automatic rollback when a request fails
+- Daily overview with a progress ring
+- Light, dark and system themes, with no flash of the wrong theme on load
+- Keyboard shortcuts: <kbd>N</kbd> new task · <kbd>/</kbd> search · <kbd>Ctrl</kbd>+<kbd>Enter</kbd> save · <kbd>Esc</kbd> close
+- Accessible: native `<dialog>`, ARIA tabs with arrow-key navigation, labelled controls, visible focus rings and `prefers-reduced-motion` support
+- Responsive from 320 px phones to wide desktops
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Tech stack
 
-## Learning Laravel
+| Layer    | Tools                                                                       |
+| -------- | --------------------------------------------------------------------------- |
+| Backend  | PHP 8.3+, Laravel 13, Eloquent, Form Requests, API Resources, backed enums  |
+| Frontend | Vue 3.5 (`<script setup>`), TypeScript, Pinia, VueUse, Tailwind CSS 4, Vite |
+| Quality  | PHPUnit, Larastan (level 8), Pint, Vitest, Vue Test Utils, ESLint, Prettier |
+| CI       | GitHub Actions and Dependabot                                               |
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Getting started
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+**Requirements:** PHP 8.3+ with `pdo_sqlite`, Composer, Node.js 22+.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+git clone https://github.com/MohamadTahernezhad/TodoListSpa.git
+cd TodoListSpa
 
-## Laravel Sponsors
+composer setup          # install deps, create .env + SQLite DB, migrate, build assets
+php artisan db:seed     # optional: load a realistic demo day
+composer dev            # start the Laravel server and Vite with hot reload
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+The app runs at <http://localhost:8000>. SQLite is the default; to use MySQL or PostgreSQL, set the `DB_*` variables in `.env`.
 
-### Premium Partners
+## Scripts
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+| Command                         | Description                         |
+| ------------------------------- | ----------------------------------- |
+| `composer dev`                  | Run the app with hot reload         |
+| `composer test`                 | Backend test suite                  |
+| `composer lint`                 | Fix PHP code style with Pint        |
+| `composer analyse`              | Static analysis with Larastan       |
+| `npm test`                      | Frontend test suite                 |
+| `npm run test:coverage`         | Frontend tests with coverage report |
+| `npm run lint` / `npm run format` | ESLint and Prettier               |
+| `npm run typecheck`             | Type-check with `vue-tsc`           |
+| `npm run build`                 | Production build                    |
 
-## Contributing
+## API
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+All endpoints live under `/api`, accept and return JSON, and are rate limited to 120 requests per minute per IP.
 
-## Code of Conduct
+| Method         | Endpoint          | Description                                   |
+| -------------- | ----------------- | --------------------------------------------- |
+| `GET`          | `/api/tasks`      | List tasks (open first, then by priority)     |
+| `POST`         | `/api/tasks`      | Create a task, returns `201`                  |
+| `GET`          | `/api/tasks/{id}` | Show a task                                   |
+| `PUT`/`PATCH`  | `/api/tasks/{id}` | Update a task (partial updates supported)     |
+| `DELETE`       | `/api/tasks/{id}` | Delete a task, returns `204`                  |
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+<details>
+<summary>Task payload</summary>
 
-## Security Vulnerabilities
+```jsonc
+{
+    "title": "Review the API pull request",   // required, max 120 characters
+    "description": "Focus on validation.",    // optional, max 2000 characters
+    "priority": "high",                       // "high" | "medium" | "low", default "medium"
+    "starts_at": "09:00",                     // optional, HH:MM
+    "ends_at": "10:00",                       // optional, HH:MM, must be after starts_at
+    "is_completed": true                      // update only
+}
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Invalid input returns `422` with Laravel's standard `{ "message", "errors" }` body.
 
-## License
+</details>
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Project structure
+
+```
+app/
+├── Casts/TimeOfDay.php              # normalises time columns to HH:MM on every database
+├── Enums/TaskPriority.php
+├── Http/
+│   ├── Controllers/Api/TaskController.php
+│   ├── Requests/                    # Store/Update requests + shared time-window rule
+│   └── Resources/TaskResource.php
+└── Models/Task.php
+
+resources/js/
+├── api/                             # axios client, error helpers, typed task endpoints
+├── components/
+│   ├── layout/                      # app header
+│   ├── tasks/                       # task list, item, form, filters, overview
+│   └── ui/                          # buttons, dialogs, toasts, badges, progress ring
+├── composables/                     # toasts, keyboard shortcuts
+├── lib/                             # pure helpers (sorting, filtering, dates)
+├── pages/TasksPage.vue
+├── stores/tasks.ts                  # Pinia store with optimistic updates
+└── types/
+
+tests/
+├── Feature/                         # API and SPA shell tests
+└── Unit/                            # model and enum tests
+```
+
+Frontend tests live next to the code they cover (`*.test.ts`).

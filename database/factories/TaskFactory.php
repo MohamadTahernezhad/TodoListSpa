@@ -2,10 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Enums\TaskPriority;
+use App\Models\Task;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Task>
+ * @extends Factory<Task>
  */
 class TaskFactory extends Factory
 {
@@ -16,13 +18,30 @@ class TaskFactory extends Factory
      */
     public function definition(): array
     {
+        $startHour = fake()->numberBetween(8, 18);
+
         return [
-            'title' => fake()->sentence(),
-            'importance' => rand(1, 3),
-            'body' => fake()->paragraph(),
-            'start_at' => fake()->time('h:m'),
-            'end_at' => fake()->time('h:m'),
-            'active' => rand(0, 1),
+            'title' => rtrim(fake()->sentence(4), '.'),
+            'description' => fake()->optional(0.7)->sentence(12),
+            'priority' => fake()->randomElement(TaskPriority::cases()),
+            'starts_at' => sprintf('%02d:00', $startHour),
+            'ends_at' => sprintf('%02d:30', $startHour + 1),
+            'completed_at' => null,
         ];
+    }
+
+    public function completed(): static
+    {
+        return $this->state(fn (): array => ['completed_at' => now()]);
+    }
+
+    public function priority(TaskPriority $priority): static
+    {
+        return $this->state(fn (): array => ['priority' => $priority]);
+    }
+
+    public function unscheduled(): static
+    {
+        return $this->state(fn (): array => ['starts_at' => null, 'ends_at' => null]);
     }
 }
